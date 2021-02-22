@@ -1,9 +1,9 @@
 import React from 'react';
 
-const SearchForm = () => {
+const SearchForm = (props) => {
   return (
-    <form>
-      <input type="text"/> 
+    <form onSubmit={() => props.handleOnSubmit()}>
+      <input type="text" value={props.searchValue} onChange={(e) => props.handleOnChange(e.target.value)}/> 
       <button type="submit">Search</button>
     </form>
   )

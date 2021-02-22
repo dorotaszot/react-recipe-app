@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+
+.ingredients-list {
+  list-style-type: none;
+}
