@@ -21,12 +21,13 @@ function App() {
 
   const handleInputOnChange = (value) => {
     setSearchValue(value);
-
   }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setQuery(searchValue);
+    setSearchValue('');
+
   }
   console.log(query);
 
