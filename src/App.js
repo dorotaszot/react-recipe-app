@@ -2,8 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { useState, useEffect } from 'react';
 import SearchForm from './components/SearchForm';
-import RecipeComponent from './components/RecipeComponent';
+import RecipeList from './components/RecipeList';
 import RecipeListHeading from './components/RecipeListHeading';
+import AddToFavourites from './components/AddToFavourites';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -40,16 +41,12 @@ function App() {
       <div className="results d-flex container">
         <div>
           <RecipeListHeading heading='Recipes'/>
-          {recipes.map((recipe) => (
-            <RecipeComponent image={recipe.recipe.image} title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} key={recipe.recipe.calories} instructions={recipe.recipe.shareAs}
-            />
-        ))} 
+          <RecipeList recipes={recipes} handleFavouriteClick={AddToFavourites}/> 
         </div>
         <div>
-        <RecipeListHeading heading='Favourites'/>
+          <RecipeListHeading heading='Favourites'/>
         </div>
       </div>
-      
     </div>
   );
 }
