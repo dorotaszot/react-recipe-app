@@ -13,67 +13,6 @@ function App() {
   const [query, setQuery] = useState('apple');
   const [favourites, setFavourites] = useState([
     {
-    "recipe": {
-        "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_efc78b450655c26cf4819f87dab2987c",
-        "label": "Apple Elixir Recipe",
-        "image": "https://www.edamam.com/web-img/efe/efe1546ab8593aaa62ed4fac11838f35.jpg",
-        "url": "http://www.seriouseats.com/recipes/2014/09/apple-elixir-cocktail-recipe.html",
-        "shareAs": "http://www.edamam.com/recipe/apple-elixir-recipe-efc78b450655c26cf4819f87dab2987c/apple",
-        "ingredients": [
-            {
-                "text": "4 cups fresh apple cider",
-                "weight": 992.0,
-                "image": "https://www.edamam.com/food-img/324/32497d8cd6291a6f03acc032e1da7676.jpg"
-            },
-            {
-                "text": "2 cinnamon sticks",
-                "weight": 5.2,
-                "image": "https://www.edamam.com/food-img/d4d/d4daa18b92c596a1c99c08537c38e65b.jpg"
-            },
-            {
-                "text": "4 allspice berries, whole",
-                "weight": 7.6,
-                "image": "https://www.edamam.com/food-img/c3f/c3f96d47d334b92f0120ff0b3a512ec3.jpg"
-            },
-            {
-                "text": "1 teaspoon cloves, whole",
-                "weight": 2.1,
-                "image": "https://www.edamam.com/food-img/8bc/8bc63f9742815a245d37e5f346674ca4.jpg"
-            },
-            {
-                "text": "2 teaspoons black peppercorns, whole",
-                "weight": 5.8,
-                "image": "https://www.edamam.com/food-img/c6e/c6e5c3bd8d3bc15175d9766971a4d1b2.jpg"
-            },
-            {
-                "text": "2 ounces Laird's Bonded Apple Brandy",
-                "weight": 56.69904625,
-                "image": null
-            },
-            {
-                "text": "1 ounce apple cider concentrate syrup",
-                "weight": 28.349523125,
-                "image": "https://www.edamam.com/food-img/ced/ced25c45453a118e531c8aaf33e2ee38.jpg"
-            },
-            {
-                "text": "1/2 ounce freshly squeezed lemon juice from about half a lemon",
-                "weight": 14.1747615625,
-                "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-            },
-            {
-                "text": "4 ounces hard cider such as Samuel Smith’s Organic Cider",
-                "weight": 113.3980925,
-                "image": "https://www.edamam.com/food-img/324/32497d8cd6291a6f03acc032e1da7676.jpg"
-            },
-            {
-                "text": "Apple slice or apple chip for garnish (optional)",
-                "weight": 182.0,
-                "image": "https://www.edamam.com/food-img/42c/42c006401027d35add93113548eeaae6.jpg"
-            }
-        ]
-    }},
-  
-    {
       "recipe": {
           "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b79327d05b8e5b838ad6cfd9576b30b6",
           "label": "Chicken Vesuvio",
@@ -160,9 +99,7 @@ function App() {
                   "weight": 134.0,
                   "image": "https://www.edamam.com/food-img/c91/c9130a361d5c5b279bf48c69e2466ec2.jpg"
               }]
-      }},
-
-
+    }},
       {
         "recipe": {
             "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_22992ab625529854ce3bbec07e2c7706",
@@ -225,18 +162,28 @@ function App() {
                     "image": "https://www.edamam.com/food-img/ecb/ecb3f5aaed96d0188c21b8369be07765.jpg"
                 }
     ]
-  }}
+    }}
     ]);
 
   useEffect(() => {
    getRecipes()
   }, [query]);
 
+useEffect(() => {
+  const favRecipes = JSON.parse(localStorage.getItem('recipe-app-favourite'));
+  console.log(favRecipes);
+
+  if(favRecipes) {
+    setFavourites(favRecipes)
+  } 
+}, [])
+
   const getRecipes = async () => {
     const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=8ca6e7bb&app_key=0ec1b9dddf5ec67cbbbd785e245f9318`);
     const data = await response.json();
     console.log(data.hits);
     setRecipes(data.hits);
+    // saveToLocalStorage();
   }
 
   const handleInputOnChange = (value) => {
@@ -254,12 +201,19 @@ function App() {
   const addFavouriteRecipe = (item) => {
     const newFavourites = [...favourites, item];
     setFavourites(newFavourites);
+    saveToLocalStorage(newFavourites);
   }
   // console.log(favourites);
   
   const deleteFavouriteRecipe = (item) => {
     const newFavourites = favourites.filter(favourite => favourite.recipe.label !== item.recipe.label);
     setFavourites(newFavourites);
+    saveToLocalStorage(newFavourites);
+
+  }
+
+  const saveToLocalStorage = (items) => {
+      localStorage.setItem('recipe-app-favourite', JSON.stringify(items));
   }
 
   return (
