@@ -220,7 +220,7 @@ useEffect(() => {
 
     <div className="App">
       <SearchForm handleOnChange={handleInputOnChange} handleOnSubmit={handleFormSubmit} searchValue={searchValue}/>
-      <div className="results d-flex container">
+      <div className="d-flex container">
         <div>
           <RecipeListHeading heading='Recipes'/>
           <RecipeList recipes={recipes} favouriteComponent={AddToFavourites} handleFavouriteClick={addFavouriteRecipe} /> 

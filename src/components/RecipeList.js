@@ -3,13 +3,13 @@ import React from 'react'
 const RecipeList = (props) => {
   const FavouriteClickComponent = props.favouriteComponent;
   return (
-    <div className="m-3">
+    <div className="single-result">
       {props.recipes.map((item) => (
-        <div className="border container mt-3 pt-3 pb-3 d-flex justify-content-center align-items-center flex-column single-recipe"> 
+        <div className="border mt-3 pt-3 pb-3 d-flex justify-content-center align-items-center flex-column single-recipe"> 
     
-          <h3 className="mb-3">{item.recipe.label}</h3>
+          <h3 className="mb-3 text-center">{item.recipe.label}</h3>
           <div className="image-container m-3">
-            <img src={item.recipe.image} alt=""/>
+            <img src={item.recipe.image} alt="" className="img-fluid"/>
             <div className="overlay" onClick={() => props.handleFavouriteClick(item)}><FavouriteClickComponent /></div>
           </div>
         
@@ -20,7 +20,7 @@ const RecipeList = (props) => {
             ))}
           </ul>
       
-          <a href={item.recipe.shareAs} className="btn btn-outline-secondary" target="blank">Instructions and more</a>
+          <a href={item.recipe.shareAs} className="btn btn-outline-secondary instructions-btn" target="blank">Instructions and more</a>
           </div>
       ))} 
     </div>
