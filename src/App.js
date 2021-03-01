@@ -179,7 +179,7 @@ useEffect(() => {
 }, [])
 
   const getRecipes = async () => {
-    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=8ca6e7bb&app_key=0ec1b9dddf5ec67cbbbd785e245f9318`);
+    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=8ca6e7bb&app_key=${process.env.REACT_APP_APP_KEY}`);
     const data = await response.json();
     console.log(data.hits);
     setRecipes(data.hits);
