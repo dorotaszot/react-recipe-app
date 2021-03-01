@@ -3,7 +3,7 @@ import React from 'react'
 const RecipeListHeading = (props) => {
   return (
     <div>
-      <h3 className="text-center bg-success text-white recipe-heading">{props.heading}</h3>
+      <h3 className="text-center text-success text-white recipe-heading">{props.heading}</h3>
     </div>
   )
 }
